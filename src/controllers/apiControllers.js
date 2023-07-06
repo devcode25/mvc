@@ -6,7 +6,19 @@ class ApiController {
         apis.find((err, apis) => {
             res.status(200).json(apis)
         })
-    }      
+    }
+    
+    static createApis = (req, res) => {
+        let api = new apis(req.body);
+      
+        api.save((err) => {
+          if (err) {
+            res.status(500).send({ message: `${err.message} - falha ao cadastrar api` })
+          } else {
+            res.status(201).send(api.toJSON())
+          }
+        })
+    }
 }
 
 export default ApiController;
